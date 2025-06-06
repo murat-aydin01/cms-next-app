@@ -16,3 +16,26 @@ export async function registerUser(email: string, password: string) {
   })
   return user
 }
+
+export async function createSession(token: string, expiresAt: Date, userId: number) {
+  const session = await prisma.session.create({
+    data: {
+      token,
+      expiresAt,
+      userId
+    },
+    omit: {
+      token: true
+    }
+  })
+  return session
+}
+
+export async function findUserByEmail(email: string) {
+  const user = await prisma.user.findUniqueOrThrow({
+    where: {
+      email
+    }
+  })
+  return user
+}
