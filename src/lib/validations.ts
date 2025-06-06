@@ -8,3 +8,8 @@ export const registerSchema = z.strictObject({
       .regex(/[0-9]/, "Password must contain at least one number")
       .regex(/[@$!%*?&]/, "Password must contain at least one special character")
 })
+
+export const loginSchema = z.strictObject({
+  email: z.email(),
+  password: z.string().min(1)
+})
