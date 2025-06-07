@@ -39,3 +39,19 @@ export async function findUserByEmail(email: string) {
   })
   return user
 }
+
+export async function findSessionByToken(token: string) {
+  const session = await prisma.session.findUniqueOrThrow({
+    where: {
+      token
+    },
+    include: {
+      user: {
+        omit: {
+          password: true
+        }
+      }
+    }
+  })
+  return session
+}
